@@ -1,8 +1,9 @@
 {
-	"name": "cooltrimmings",
-	"displayName": "CoolTrimmings",
+	"name": "gitpruned",
+	"displayName": "Git Prun'd",
 	"description": "",
-	"version": "0.0.1",
+	"version": "0.0.7",
+	"publisher": "theprodigy161",
 	"engines": {
 		"vscode": "^1.56.0"
 	},
@@ -10,14 +11,15 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:cooltrimmings.getBranchesList"
+		"onStartupFinished",
+		"onCommand:gitpruned.clearBranches"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "cooltrimmings.getBranchesList",
-				"title": "Get Branches"
+				"command": "gitpruned.clearBranches",
+				"title": "Clear Branches"
 			}
 		]
 	},
