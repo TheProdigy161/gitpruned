@@ -10,27 +10,26 @@ export function activate(context: ExtensionContext) {
 	output.show(true);
 	output.appendLine('Congratulations, your extension "gitpruned" is now active!');
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
+	const currentWorkspaceFolders: string[] | undefined = workspace.workspaceFolders?.map(folder => folder.uri.path);
+	let currentDirectory: string = "";
+
+	if (currentWorkspaceFolders != null)
+		currentDirectory = currentWorkspaceFolders[0].substring(1);
+	else {
+		output.appendLine("Failed to get a workspace folder.");
+		return;
+	}
+	
 	let disposable = commands.registerCommand('gitpruned.clearBranches', () => {
 		output.appendLine("Pruning branches.");
-		const currentWorkspaceFolders: string[] | undefined = workspace.workspaceFolders?.map(folder => folder.uri.path);
-		let currentDirectory: string = "";
-
-		if (currentWorkspaceFolders != null)
-			currentDirectory = currentWorkspaceFolders[0].substring(1);
-		else {
-			output.appendLine("Failed to get a workspace folder.");
-			return;
-		}
 		
 		exec(`cd ${currentDirectory} && git branch -a`, (e, x, y) => {
 			if (e) {
 				output.appendLine(`Exec error: ${e}`);
 				return;
 			}
-
+			
+			// Filter branches to not include the current branch.
 			const branches: string[] = x.split('\n').filter(x => !x.includes('*'));
 
 			branches.forEach(x => {
@@ -41,7 +40,7 @@ export function activate(context: ExtensionContext) {
 
 				output.appendLine(`Pruning branch: ${x}`);
 				try {
-					execSync(`cd ${currentDirectory} && git branch --delete --force ${x}`);
+					execSync(`cd ${currentDirectory} && git branch --delete ${x}`);
 					output.appendLine('Branch pruned.');
 				}
 				catch (e) {

@@ -11,11 +11,30 @@
 		"Other"
 	],
 	"activationEvents": [
+		"onView:nodeDependencies",
 		"onStartupFinished",
 		"onCommand:gitpruned.clearBranches"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "git-pruned-explorer",
+					"title": "Git Prun'd Explorer",
+					"icon": "media/dep.svg"
+				}
+			]
+		},
+		"views": {
+			"git-pruned-explorer": [
+				{
+					"id": "gitPrunedBranches",
+					"name": "Branches",
+					"icon": "media/dep.svg"
+				}
+			]
+		},
 		"commands": [
 			{
 				"command": "gitpruned.clearBranches",
