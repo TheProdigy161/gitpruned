@@ -11,14 +11,13 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onView:nodeDependencies",
 		"onStartupFinished",
 		"onCommand:gitpruned.clearBranches"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"viewsContainers": {
-			"activitybar": [
+			"panel": [
 				{
 					"id": "git-pruned-explorer",
 					"title": "Git Prun'd Explorer",
@@ -39,8 +38,39 @@
 			{
 				"command": "gitpruned.clearBranches",
 				"title": "Clear Branches"
+			},
+			{
+				"command": "gitpruned.refreshBranches",
+				"title": "Refresh",
+				"icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
+                }
+			},
+			{
+				"command": "gitpruned.deleteBranch",
+				"title": "Delete",
+				"icon": {
+                    "light": "resources/light/folder.svg",
+                    "dark": "resources/dark/folder.svg"
+                }
 			}
-		]
+		],
+		"menus": {
+			"view/title": [
+				{
+					"command": "gitpruned.refreshBranches",
+					"when": "view == gitPrunedBranches",
+					"group": "navigation"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "gitpruned.deleteBranch",
+					"when": "view == gitPrunedBranches && viewItem == branch"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
