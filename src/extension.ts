@@ -1,26 +1,25 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import { exec, execSync } from 'child_process';
-import { commands, DocumentHighlight, ExtensionContext, window, workspace } from 'vscode';
+import { commands, ExtensionContext, window, workspace } from 'vscode';
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
+const output = window.createOutputChannel("Git Prun'd");
+let currentDirectory: string = GetCurrentDirectory();
+
+// This method is called when the extension is activated.
 export function activate(context: ExtensionContext) {
-	const output = window.createOutputChannel("Git Prun'd");
 	output.show(true);
 	output.appendLine('Congratulations, your extension "gitpruned" is now active!');
-
-	const currentWorkspaceFolders: string[] | undefined = workspace.workspaceFolders?.map(folder => folder.uri.path);
-	let currentDirectory: string = "";
-
-	if (currentWorkspaceFolders != null)
-		currentDirectory = currentWorkspaceFolders[0].substring(1);
-	else {
-		output.appendLine("Failed to get a workspace folder.");
-		return;
-	}
 	
-	let disposable = commands.registerCommand('gitpruned.clearBranches', () => {
+	setupClearBranchesCommand(context);
+}
+
+// This method is called when the extension is deactivated.
+export function deactivate() {}
+
+// Setup the command Clear Branches that clears all branches in the current repo.
+function setupClearBranchesCommand(context: ExtensionContext) {
+	const subscription = commands.registerCommand('gitpruned.clearBranches', () => {
 		output.appendLine("Pruning branches.");
 		
 		exec(`cd ${currentDirectory} && git branch -a`, (e, x, y) => {
@@ -53,8 +52,21 @@ export function activate(context: ExtensionContext) {
 		});
 	});
 
-	context.subscriptions.push(disposable);
+	context.subscriptions.push(subscription);
 }
 
-// this method is called when your extension is deactivated
-export function deactivate() {}
+// Gets the current directory.
+function GetCurrentDirectory(): string {
+	let directory = "";
+	// Get the current directory.
+	const currentWorkspaceFolders: string[] | undefined = workspace.workspaceFolders?.map(folder => folder.uri.path);
+
+	if (currentWorkspaceFolders != null) {
+		directory = currentWorkspaceFolders[0].substring(1);
+	}
+	else {
+		output.appendLine("Failed to get a workspace folder.");
+	}
+
+	return directory;
+}
