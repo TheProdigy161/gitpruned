@@ -49,11 +49,7 @@
 			},
 			{
 				"command": "gitpruned.deleteBranch",
-				"title": "Delete",
-				"icon": {
-                    "light": "resources/light/folder.svg",
-                    "dark": "resources/dark/folder.svg"
-                }
+				"title": "Delete"
 			}
 		],
 		"menus": {

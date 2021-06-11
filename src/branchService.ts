@@ -14,7 +14,7 @@ export class BranchService {
 
                 const allBranchNames: string[] = x
                     .split('\n')
-                    .filter(x => !x.includes('*') && x.trim() != "")
+                    .filter(x => !x.includes('*') && x.trim() !== "")
                     .map(x => x.trim());
                 
                 resolve(allBranchNames);
@@ -36,10 +36,10 @@ export class BranchService {
     static deleteBranch(branch: Branch): Thenable<boolean> {
         return new Promise(async function(resolve, reject) {
             try {
-                execSync(`cd ${Utilities.getCurrentDirectory()} && git branch --delete ${branch}`);
+                execSync(`cd ${Utilities.getCurrentDirectory()} && git branch --delete ${branch.branchName}`);
                 resolve(true);
             } catch (e) {
-                window.showInformationMessage(e);
+                window.showInformationMessage((e as Error).message);
                 resolve(false);
             }
         });

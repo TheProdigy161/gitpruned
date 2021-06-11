@@ -10,34 +10,14 @@ let currentDirectory: string = Utilities.getCurrentDirectory();
 
 // This method is called when the extension is activated.
 export function activate(context: ExtensionContext) {
+	const branchesProvider: BranchesProvider = new BranchesProvider();
 	Utilities.showOutputChannel();
 	Utilities.log('Congratulations, your extension "gitpruned" is now active!');
 	
-	setupTreeView();
-
-	setupRefreshButton();
-	setupDeleteBranchButton();
+	window.registerTreeDataProvider('gitPrunedBranches', branchesProvider);
+	commands.registerCommand("gitpruned.refreshBranches", () => branchesProvider.refresh());
+	commands.registerCommand("gitpruned.deleteBranch", (branch: Branch) => branchesProvider.delete(branch));
 }
 
 // This method is called when the extension is deactivated.
 export function deactivate() {}
-
-function setupTreeView(): void {
-	window.createTreeView("gitPrunedBranches", {
-		treeDataProvider: new BranchesProvider("")
-	});
-}
-
-function setupRefreshButton(): void {
-	const branchesProvider: BranchesProvider = new BranchesProvider("");
-	commands.registerCommand("gitpruned.refreshBranches", () => {
-		branchesProvider.refresh();
-	});
-}
-
-function setupDeleteBranchButton(): void {
-	const branchesProvider: BranchesProvider = new BranchesProvider("");
-	commands.registerCommand("gitpruned.deleteBranch", (branch: Branch) => {
-		branchesProvider.delete(branch);
-	});
-}
