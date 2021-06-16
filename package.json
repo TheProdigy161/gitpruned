@@ -49,7 +49,11 @@
 			},
 			{
 				"command": "gitpruned.deleteBranch",
-				"title": "Delete"
+				"title": "Delete",
+				"icon": {
+                    "light": "resources/light/delete.svg",
+                    "dark": "resources/dark/delete.svg"
+                }
 			}
 		],
 		"menus": {
@@ -63,7 +67,8 @@
 			"view/item/context": [
 				{
 					"command": "gitpruned.deleteBranch",
-					"when": "view == gitPrunedBranches && viewItem == branch"
+					"when": "view == gitPrunedBranches && viewItem == branch",
+					"group": "inline"
 				}
 			]
 		}
