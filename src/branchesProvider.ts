@@ -27,8 +27,8 @@ export class BranchesProvider implements TreeDataProvider<Branch> {
         this._onDidChangeTreeData.fire();
     }
 
-    delete(branch: Branch): void {
-        BranchService.deleteBranch(branch);
+    delete(originBranch: Branch, selectedBranches: Branch[]): void {
+        selectedBranches.forEach(branch => BranchService.deleteBranch(branch));
         this.refresh();
     }
 }
