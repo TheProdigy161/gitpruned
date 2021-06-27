@@ -38,17 +38,17 @@
 				"command": "gitpruned.refreshBranches",
 				"title": "Refresh",
 				"icon": {
-                    "light": "resources/light/refresh.svg",
-                    "dark": "resources/dark/refresh.svg"
-                }
+					"light": "resources/light/refresh.svg",
+					"dark": "resources/dark/refresh.svg"
+				}
 			},
 			{
 				"command": "gitpruned.deleteBranch",
 				"title": "Delete",
 				"icon": {
-                    "light": "resources/light/delete.svg",
-                    "dark": "resources/dark/delete.svg"
-                }
+					"light": "resources/light/delete.svg",
+					"dark": "resources/dark/delete.svg"
+				}
 			}
 		],
 		"menus": {
