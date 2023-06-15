@@ -4,6 +4,9 @@
 	"description": "An extension that allows for deleting of multiple local branches.",
 	"version": "1.0.0",
 	"publisher": "theprodigy161",
+	"repository": {
+		"url": "https://github.com/TheProdigy161/gitpruned"
+	},
 	"engines": {
 		"vscode": "^1.56.0"
 	},
