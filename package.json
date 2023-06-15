@@ -2,7 +2,7 @@
 	"name": "gitpruned",
 	"displayName": "Git Prun'd",
 	"description": "An extension that allows for deleting of multiple local branches.",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"publisher": "theprodigy161",
 	"repository": {
 		"url": "https://github.com/TheProdigy161/gitpruned"

@@ -17,7 +17,7 @@ Currently none.
 
 ## Release Notes
 
-### 1.0.1
+### 1.0.2
 * Added bugfix to ensure that when using WSL, will be able to access project directory
 
 ### 1.0.0
