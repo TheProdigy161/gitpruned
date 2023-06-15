@@ -6,7 +6,13 @@ import { Utilities } from "./utilities";
 export class BranchService {
     static getAllBranches(): Thenable<string[]> {
         return new Promise(function(resolve, reject) {
-            exec(`cd ${Utilities.getCurrentDirectory()} && git branch -a`, (e, x, y) => {
+            let directory = Utilities.getCurrentDirectory();
+
+            if (directory.startsWith('mnt')) {
+                directory = `/${directory}`;
+            }
+
+            exec(`cd ${directory} && git branch -a`, (e, x, y) => {
                 if (e) {
                     window.showInformationMessage(e.message);
                     return Promise.resolve([]);
