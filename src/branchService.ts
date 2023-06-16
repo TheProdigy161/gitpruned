@@ -7,8 +7,9 @@ export class BranchService {
     static getAllBranches(): Thenable<string[]> {
         return new Promise(function(resolve, reject) {
             let directory = Utilities.getCurrentDirectory();
+            const checkIfWindowsDirectory = /[a-zA-Z]{1}:\\/;
 
-            if (directory.startsWith('mnt')) {
+            if (!checkIfWindowsDirectory.test(directory)) {
                 directory = `/${directory}`;
             }
 
