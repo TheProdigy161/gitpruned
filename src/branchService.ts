@@ -42,8 +42,15 @@ export class BranchService {
 
     static deleteBranch(branch: Branch): Thenable<boolean> {
         return new Promise(async function(resolve, reject) {
+            let directory = Utilities.getCurrentDirectory();
+            const checkIfWindowsDirectory = /[a-zA-Z]{1}:\\/;
+
+            if (!checkIfWindowsDirectory.test(directory)) {
+                directory = `/${directory}`;
+            }
+
             try {
-                execSync(`cd ${Utilities.getCurrentDirectory()} && git branch --delete ${branch.branchName}`);
+                execSync(`cd ${directory} && git branch --delete ${branch.branchName}`);
                 resolve(true);
             } catch (e) {
                 window.showInformationMessage((e as Error).message);
