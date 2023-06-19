@@ -28,7 +28,12 @@ export class BranchesProvider implements TreeDataProvider<Branch> {
     }
 
     delete(originBranch: Branch, selectedBranches: Branch[]): void {
-        selectedBranches.forEach(branch => BranchService.deleteBranch(branch));
+        if (selectedBranches) {
+            selectedBranches.forEach(branch => BranchService.deleteBranch(branch));
+        } else {
+            BranchService.deleteBranch(originBranch);
+        }
+
         this.refresh();
     }
 }

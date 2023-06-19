@@ -7,7 +7,7 @@ export class BranchService {
     static getAllBranches(): Thenable<string[]> {
         return new Promise(function(resolve, reject) {
             let directory = Utilities.getCurrentDirectory();
-            const checkIfWindowsDirectory = /[a-zA-Z]{1}:\\/;
+            const checkIfWindowsDirectory = /[a-zA-Z]{1}:\//;
 
             if (!checkIfWindowsDirectory.test(directory)) {
                 directory = `/${directory}`;
@@ -43,7 +43,7 @@ export class BranchService {
     static deleteBranch(branch: Branch): Thenable<boolean> {
         return new Promise(async function(resolve, reject) {
             let directory = Utilities.getCurrentDirectory();
-            const checkIfWindowsDirectory = /[a-zA-Z]{1}:\\/;
+            const checkIfWindowsDirectory = /[a-zA-Z]{1}:\//;
 
             if (!checkIfWindowsDirectory.test(directory)) {
                 directory = `/${directory}`;

@@ -17,6 +17,9 @@ Currently none.
 
 ## Release Notes
 
+### 1.0.5
+* Added fix to ensure that delete branches works as intended.
+
 ### 1.0.3
 * Added fix for 1.0.2 as it not correctly accessing directory in WSL.
 
